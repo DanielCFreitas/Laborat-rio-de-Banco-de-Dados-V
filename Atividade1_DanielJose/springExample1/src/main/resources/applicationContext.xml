@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<!-- Exemplo do professor -->
+	<bean id="placa" class="br.gov.sp.fatec.Placa">
+		<property name="mensagem" ref="mensagem" />
+	</bean>
+
+	<bean id="mensagem" class="br.gov.sp.fatec.HelloWorld">
+		<property name="nome" value="Newcomer" />
+	</bean>
+
+	<!-- Atividade passada em sala de aula -->
+	<bean id="contacorrente" class="br.gov.sp.fatec.atividade01.ContaCorrente">
+		<property name="cliente" ref="cliente"></property>
+	</bean>
+
+	<bean id="cliente" class="br.gov.sp.fatec.atividade01.Cliente">
+		<property name="nome" value="Daniel" />
+		<property name="cpf" value="365.547.745-21" />
+		<property name="rg" value="26.365.657-2" />
+		<property name="idade" value="24" />
+	</bean>
+
+
+</beans>
