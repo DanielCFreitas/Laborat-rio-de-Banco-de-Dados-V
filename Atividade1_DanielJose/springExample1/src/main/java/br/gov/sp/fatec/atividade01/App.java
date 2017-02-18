@@ -9,8 +9,12 @@ public class App {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 		ContaCorrente contaCorrente = (ContaCorrente) context.getBean("contacorrente");
+		Setor setor = (Setor) context.getBean("setor");
+		Transferencia transferencia = (Transferencia) context.getBean("transferencia");
 
 		System.out.println(contaCorrente.imprimeCliente());
+		System.out.println(setor.lerSetor());
+		System.out.println(transferencia.imprimeTransferencia());
 
 		context.close();
 	}

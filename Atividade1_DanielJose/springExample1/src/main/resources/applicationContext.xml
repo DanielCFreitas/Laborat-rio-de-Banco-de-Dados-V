@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
@@ -12,16 +12,61 @@
 		<property name="nome" value="Newcomer" />
 	</bean>
 
-	<!-- Atividade passada em sala de aula -->
+
+
+
+	<!-- ATIVIDADE PASSADA EM SALA DE AULA -->
+
+	<!-- INJETANDO PESSOA / CONTA CORRENTE -->
 	<bean id="contacorrente" class="br.gov.sp.fatec.atividade01.ContaCorrente">
-		<property name="cliente" ref="cliente"></property>
+		<property name="cliente" ref="pessoa" />
 	</bean>
 
-	<bean id="cliente" class="br.gov.sp.fatec.atividade01.Cliente">
+	<bean id="pessoa" class="br.gov.sp.fatec.atividade01.Cliente">
 		<property name="nome" value="Daniel" />
 		<property name="cpf" value="365.547.745-21" />
 		<property name="rg" value="26.365.657-2" />
 		<property name="idade" value="24" />
+	</bean>
+
+	<!-- INJETANDO LISTA DE FUNCIONARIO / SETOR -->
+	<bean id="setor" class="br.gov.sp.fatec.atividade01.Setor">
+		<property name="nome" value="Gerência" />
+		<property name="funcionarios">
+			<list>
+				<ref bean="funcionario" />
+				<ref bean="funcionario2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="funcionario" class="br.gov.sp.fatec.atividade01.Funcionario">
+		<property name="nome" value="Rafael" />
+		<property name="cpf" value="356.651.325-66" />
+		<property name="rg" value="36.659.974-5" />
+		<property name="idade" value="35" />
+	</bean>
+
+	<bean id="funcionario2" class="br.gov.sp.fatec.atividade01.Funcionario">
+		<property name="nome" value="Maria" />
+		<property name="cpf" value="365.124.698.36" />
+		<property name="rg" value="56.632.987.5" />
+		<property name="idade" value="37" />
+	</bean>
+
+
+	<!-- INJETANDO CLIENTES EM TRANSFERENCIA BANCARIA -->
+	<bean id="transferencia" class="br.gov.sp.fatec.atividade01.Transferencia">
+		<property name="clienteOrigem" ref="pessoa" />
+		<property name="clienteDestino" ref="pessoa2" />
+		<property name="valorTransferido" value="698.32"></property>
+	</bean>
+
+	<bean id="pessoa2" class="br.gov.sp.fatec.atividade01.Cliente">
+		<property name="nome" value="Matheus" />
+		<property name="cpf" value="966.324.698-66" />
+		<property name="rg" value="23.698.653-5" />
+		<property name="idade" value="42" />
 	</bean>
 
 

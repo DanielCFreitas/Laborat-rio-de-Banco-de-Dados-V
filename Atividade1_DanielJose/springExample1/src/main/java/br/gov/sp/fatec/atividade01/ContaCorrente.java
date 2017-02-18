@@ -20,7 +20,8 @@ public class ContaCorrente {
 	public String imprimeCliente() {
 		StringBuilder sb = new StringBuilder();
 
-		sb.append("Nome: ");
+		sb.append("=== INFORMAÇÕES DA CONTA ===");
+		sb.append("\nNome: ");
 		sb.append(cliente.getNome());
 		sb.append("\nCPF: ");
 		sb.append(cliente.getCpf());
