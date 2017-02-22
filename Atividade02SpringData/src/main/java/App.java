@@ -34,7 +34,7 @@ public class App {
 		Fornecedor fornecedor = new Fornecedor();
 
 		fornecedor.setNome("LG");
-		fornecedor.setCnpj("96584441");
+		fornecedor.setCnpj("9658441");
 		fornecedor.setEndereco("Rua Gomide Santos");
 		fornecedor.setTelefone("(12) 1713-6713");
 
@@ -63,27 +63,47 @@ public class App {
 		// FORNECEDOR
 		List<Produto> produtosDeCategoriaEFornecedor = produtoRepository
 				.findByCategoriaAndFornecedorNomeEquals(Categoria.ELETRINICOS, "Positivo");
-		for (Produto produtoIndividual : produtosDeCategoriaEFornecedor) {
-			System.out.println(produtoIndividual.toString());
+
+		if (produtosDeCategoriaEFornecedor.size() == 0) {
+			System.out
+					.println("=========== Não foram encontrados produtos desta categoria deste fornecedor ===========");
+		} else {
+			for (Produto produtoIndividual : produtosDeCategoriaEFornecedor) {
+				System.out.println(produtoIndividual.toString());
+			}
 		}
 
 		// CONSULTA OS PRODUTOS QUE POSSUI UM PRECO MINIMO
 		List<Produto> produtosComPrecoMinimo = produtoRepository.findByPrecoGreaterThan(1000d);
-		for (Produto produtoIndividual : produtosComPrecoMinimo) {
-			System.out.println(produtoIndividual.toString());
+
+		if (produtosComPrecoMinimo.isEmpty()) {
+			System.out.println("=========== Não foram encontrados produtos com este preco minimo ===========");
+		} else {
+			for (Produto produtoIndividual : produtosComPrecoMinimo) {
+				System.out.println(produtoIndividual.toString());
+			}
 		}
 
 		// CONSULTA OS PRODUTOS QUE POSSUI UM PRECO MAXIMO
 		List<Produto> produtosComPrecoMaximo = produtoRepository.findByPrecoLessThan(1000d);
-		for (Produto produtoIndividual : produtosComPrecoMaximo) {
-			System.out.println(produtoIndividual.toString());
+		if (produtosComPrecoMaximo.isEmpty()) {
+			System.out.println("=========== Não foram encontrados produtos com este preco maximo ===========");
+		} else {
+			for (Produto produtoIndividual : produtosComPrecoMaximo) {
+				System.out.println(produtoIndividual.toString());
+			}
 		}
 
 		// CONSULTA OS PRODUTOS QUE POSSUEM UMA DETERMINADA SEQUENCIA DE
 		// CARACTERES OU DETERMINADA LETRA
 		List<Produto> produtoComSequenciaDeCaracteres = produtoRepository.findByNomeContaining("a");
-		for (Produto produtoIndividual : produtoComSequenciaDeCaracteres) {
-			System.out.println(produtoIndividual.toString());
+		if (produtoComSequenciaDeCaracteres.isEmpty()) {
+			System.out
+					.println("=========== Não foram encontrados produtos com esta sequencia de caracteres ===========");
+		} else {
+			for (Produto produtoIndividual : produtoComSequenciaDeCaracteres) {
+				System.out.println(produtoIndividual.toString());
+			}
 		}
 
 		// CONSULTA DE VENDA ENTRE DUAS DATAS
@@ -101,8 +121,13 @@ public class App {
 
 		List<Venda> vendasEntreAsDatas = vendaRepository.buscarVendasAPartirDe(inicio, fim);
 
-		for (Venda vendaIndividual : vendasEntreAsDatas) {
-			System.out.println(vendaIndividual.getDataVenda().toString());
+		if (vendasEntreAsDatas.isEmpty()) {
+			System.out.println(
+					"=========== Não foram encontrados produtos entre as duas datas especificadas ===========");
+		} else {
+			for (Venda vendaIndividual : vendasEntreAsDatas) {
+				System.out.println(vendaIndividual.getDataVenda().toString());
+			}
 		}
 
 		context.close();

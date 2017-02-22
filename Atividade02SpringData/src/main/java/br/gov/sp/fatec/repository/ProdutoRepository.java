@@ -19,7 +19,7 @@ public interface ProdutoRepository extends CrudRepository<Produto, Long> {
 	 *            Fornecedor do Produto
 	 * @return Lista de Produtos com a mesma categoria e fornecedor
 	 */
-	public List<Produto> findByCategoriaAndFornecedorNomeEquals(Categoria categoria, String fornecedor);
+	public List<Produto> findByCategoriaAndFornecedorNomeEquals(Categoria categoria, String nome);
 
 	/**
 	 * Busca os produtos que os precos sejam acima de um determinado valor
