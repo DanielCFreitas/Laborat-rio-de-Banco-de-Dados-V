@@ -8,11 +8,9 @@ import br.gov.sp.fatec.model.Categoria;
 import br.gov.sp.fatec.model.Fornecedor;
 import br.gov.sp.fatec.model.Produto;
 import br.gov.sp.fatec.model.Venda;
+import br.gov.sp.fatec.repository.FornecedorRepository;
 import br.gov.sp.fatec.repository.ProdutoRepository;
 import br.gov.sp.fatec.repository.VendaRepository;
-import br.gov.sp.fatec.service.FornecedorService;
-import br.gov.sp.fatec.service.ProdutoService;
-import br.gov.sp.fatec.service.VendaService;
 
 public class App {
 
@@ -24,11 +22,9 @@ public class App {
 		// Instancia dos Repository Bean
 		ProdutoRepository produtoRepository = context.getBean("produtoRepository", ProdutoRepository.class);
 		VendaRepository vendaRepository = context.getBean("vendaRepository", VendaRepository.class);
+		FornecedorRepository fornecedorRepository = context.getBean("fornecedorrepository", FornecedorRepository.class);
 
 		// Instancia dos Service Bean
-		FornecedorService fornecedorService = context.getBean("fornecedorService", FornecedorService.class);
-		ProdutoService produtoService = context.getBean("produtoService", ProdutoService.class);
-		VendaService vendaService = context.getBean("vendaService", VendaService.class);
 
 		// ==== TESTE CADASTRO FORNECEDOR ====
 		Fornecedor fornecedor = new Fornecedor();
@@ -38,7 +34,7 @@ public class App {
 		fornecedor.setEndereco("Rua Gomide Santos");
 		fornecedor.setTelefone("(12) 1713-6713");
 
-		fornecedorService.salvarFornecedor(fornecedor);
+		fornecedorRepository.save(fornecedor);
 
 		// ==== TESTE CADASTRO PRODUTO ====
 		Produto produto = new Produto();
@@ -47,15 +43,15 @@ public class App {
 		produto.setPreco(1251.00);
 		produto.setCategoria(Categoria.ELETRINICOS);
 
-		produtoService.salvarProduto(produto);
+		produtoRepository.save(produto);
 
 		// ==== TESTE CADASTRO VENDA ====
 		Venda venda = new Venda();
 		venda.setDataVenda(new Date());
 		List<Produto> produtos = (List<Produto>) produtoRepository.findAll();
-		venda.setProduto(produtos);
+		venda.setProdutos(produtos);
 
-		vendaService.salvarVenda(venda);
+		vendaRepository.save(venda);
 
 		// ==== TESTE CONSULTAS ====
 
@@ -65,8 +61,8 @@ public class App {
 				.findByCategoriaAndFornecedorNomeEquals(Categoria.ELETRINICOS, "Positivo");
 
 		if (produtosDeCategoriaEFornecedor.size() == 0) {
-			System.out
-					.println("=========== Não foram encontrados produtos desta categoria deste fornecedor ===========");
+			System.out.println(
+					"=========== Não foram encontrados produtos desta categoria deste fornecedor ===========");
 		} else {
 			for (Produto produtoIndividual : produtosDeCategoriaEFornecedor) {
 				System.out.println(produtoIndividual.toString());
@@ -98,8 +94,8 @@ public class App {
 		// CARACTERES OU DETERMINADA LETRA
 		List<Produto> produtoComSequenciaDeCaracteres = produtoRepository.findByNomeContaining("a");
 		if (produtoComSequenciaDeCaracteres.isEmpty()) {
-			System.out
-					.println("=========== Não foram encontrados produtos com esta sequencia de caracteres ===========");
+			System.out.println(
+					"=========== Não foram encontrados produtos com esta sequencia de caracteres ===========");
 		} else {
 			for (Produto produtoIndividual : produtoComSequenciaDeCaracteres) {
 				System.out.println(produtoIndividual.toString());

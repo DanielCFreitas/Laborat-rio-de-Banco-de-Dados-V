@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,6 +41,9 @@ public class Venda {
 	@JoinTable(name = "VPV_VENDA_PRODUTO", joinColumns = { @JoinColumn(name = "VEN_ID") }, inverseJoinColumns = {
 			@JoinColumn(name = "PROD_ID") })
 	private List<Produto> produtos;
+
+	@ManyToOne
+	private Cliente cliente;
 
 	public Venda() {
 
@@ -84,31 +88,57 @@ public class Venda {
 	}
 
 	/**
-	 * Método que retorna uma lista de produtos vendidos
+	 * Método que retorna a lista de Produtos Vendidos
 	 * 
-	 * @return Lista de Produtos Vendidos
+	 * @return produtos Produtos Vendidos
 	 */
-	public List<Produto> getProduto() {
+	public List<Produto> getProdutos() {
 		return produtos;
 	}
 
 	/**
-	 * Método que seta a lista de Produtos Vendidos
+	 * Método que seta a lista de produtos que um cliente comprou
 	 * 
-	 * @param produtos
-	 *            Produtos Vendidos
+	 * @param Lista
+	 *            de Produtos
 	 */
-	public void setProduto(List<Produto> produtos) {
+	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
 	}
 
+	/**
+	 * Método que retorna um cliente
+	 * 
+	 * @return Data da venda de um produto
+	 */
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	/**
+	 * Método que seta o cliente de uma venda
+	 * 
+	 * @param Cliente
+	 *            da venda
+	 */
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	/**
+	 * Método para retornar uma String com as informações de uma venda
+	 * 
+	 * @return Retorna informações de um Objeto Venda
+	 */
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("=== Venda ===");
-		sb.append("Data da Venda: ");
+		sb.append("\nData da Venda: ");
 		sb.append(this.dataVenda.toString());
+		sb.append("\nCliente: ");
+		sb.append(this.cliente.getNome());
 		sb.append("Produtos: ");
 		for (Produto produtoIndividual : this.produtos) {
 			sb.append("\n");
