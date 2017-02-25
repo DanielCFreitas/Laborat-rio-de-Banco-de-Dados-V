@@ -6,4 +6,4 @@ A aplicação será desenvolvida para um sistema de cadastro e consultas de vend
 
 #Diagrama de Classe
 
-![alt tag](http://i.imgur.com/T52w2n3.jpg)
+![alt tag](http://i.imgur.com/7YkLboa.jpg)
