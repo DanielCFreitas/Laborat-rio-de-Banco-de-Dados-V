@@ -8,5 +8,5 @@ package br.gov.sp.fatec.model;
  */
 public enum Categoria {
 
-	ELETRINICOS, VESTIMENTA, ALIMENTOS;
+	ELETRONICOS, VESTIMENTAS, ALIMENTOS;
 }

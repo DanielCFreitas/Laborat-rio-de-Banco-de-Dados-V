@@ -43,6 +43,7 @@ public class Venda {
 	private List<Produto> produtos;
 
 	@ManyToOne
+	@JoinColumn(name = "CLI_ID")
 	private Cliente cliente;
 
 	public Venda() {

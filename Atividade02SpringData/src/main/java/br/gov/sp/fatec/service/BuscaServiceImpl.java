@@ -39,4 +39,5 @@ public class BuscaServiceImpl implements BuscaService {
 
 		return produtosCompradosPeloCliente;
 	}
+
 }
