@@ -1,9 +1,12 @@
+package br.gov.sp.fatec.testes;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.ApplicationContext;
 
+import br.gov.sp.fatec.context.SpringContext;
 import br.gov.sp.fatec.model.Categoria;
 import br.gov.sp.fatec.model.Produto;
 import br.gov.sp.fatec.model.Venda;
@@ -11,10 +14,9 @@ import br.gov.sp.fatec.repository.ProdutoRepository;
 import br.gov.sp.fatec.repository.VendaRepository;
 
 public class AppTestConsultas {
-
 	public static void main(String[] args) {
 
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ApplicationContext context = SpringContext.getApplicationContext();
 
 		ProdutoRepository produtoRepository = context.getBean("produtoRepository", ProdutoRepository.class);
 		VendaRepository vendaRepository = context.getBean("vendaRepository", VendaRepository.class);
@@ -92,7 +94,6 @@ public class AppTestConsultas {
 			}
 		}
 
-		context.close();
 	}
 
 }

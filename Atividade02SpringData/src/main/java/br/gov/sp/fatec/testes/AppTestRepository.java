@@ -1,8 +1,11 @@
+package br.gov.sp.fatec.testes;
+
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.ApplicationContext;
 
+import br.gov.sp.fatec.context.SpringContext;
 import br.gov.sp.fatec.model.Categoria;
 import br.gov.sp.fatec.model.Cliente;
 import br.gov.sp.fatec.model.Fornecedor;
@@ -18,12 +21,12 @@ public class AppTestRepository {
 	public static void main(String[] args) {
 
 		// Instancia Contexto
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ApplicationContext context = SpringContext.getApplicationContext();
 
 		// Instancia dos Repository Bean
 		ProdutoRepository produtoRepository = context.getBean("produtoRepository", ProdutoRepository.class);
 		VendaRepository vendaRepository = context.getBean("vendaRepository", VendaRepository.class);
-		FornecedorRepository fornecedorRepository = context.getBean("fornecedorrepository", FornecedorRepository.class);
+		FornecedorRepository fornecedorRepository = context.getBean("fornecedorRepository", FornecedorRepository.class);
 		ClienteRepository clienteRepository = context.getBean("clienteRepository", ClienteRepository.class);
 
 		// Instancia dos Service Bean
@@ -47,14 +50,6 @@ public class AppTestRepository {
 
 		produtoRepository.save(produto);
 
-		// ==== TESTE CADASTRO VENDA ====
-		Venda venda = new Venda();
-		venda.setDataVenda(new Date());
-		List<Produto> produtos = (List<Produto>) produtoRepository.findAll();
-		venda.setProdutos(produtos);
-
-		vendaRepository.save(venda);
-
 		// ==== TESTE CADASTRO CLIENTE ====
 		Cliente cliente = new Cliente();
 		cliente.setNome("Joao");
@@ -63,7 +58,14 @@ public class AppTestRepository {
 
 		clienteRepository.save(cliente);
 
-		context.close();
+		// ==== TESTE CADASTRO VENDA ====
+		Venda venda = new Venda();
+		venda.setDataVenda(new Date());
+		List<Produto> produtos = (List<Produto>) produtoRepository.findAll();
+		venda.setProdutos(produtos);
+		venda.setCliente(cliente);
+
+		vendaRepository.save(venda);
 	}
 
 }
