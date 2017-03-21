@@ -43,8 +43,14 @@ public class ClienteRepositoryTest extends AbstractTransactionalJUnit4SpringCont
 	 */
 	@Test
 	public void testConsultar() {
-		Cliente cliente = clienteRepository.findOne(1L);
-		assertTrue(cliente != null);
+		Cliente cliente = new Cliente();
+		cliente.setNome("Daniel");
+		cliente.setSobrenome("Freitas");
+		cliente.setTelefone("26662656");
+		clienteRepository.save(cliente);
+		
+		Cliente clienteTest = clienteRepository.findOne(1L);
+		assertTrue(clienteTest != null);
 	}
 
 	/**
@@ -52,12 +58,18 @@ public class ClienteRepositoryTest extends AbstractTransactionalJUnit4SpringCont
 	 */
 	@Test
 	public void testAlterar() {
-		Cliente cliente = clienteRepository.findOne(1L);
-		cliente.setNome("João");
+		Cliente cliente = new Cliente();
+		cliente.setNome("Daniel");
+		cliente.setSobrenome("Freitas");
+		cliente.setTelefone("26662656");
+		clienteRepository.save(cliente);
+		
+		Cliente clienteTest = clienteRepository.findOne(1L);
+		clienteTest.setNome("João");
 		clienteRepository.save(cliente);
 
-		Cliente clienteTest = clienteRepository.findOne(1L);
-		assertTrue(clienteTest.getNome().equals("João"));
+		Cliente clienteAlterarTest = clienteRepository.findOne(1L);
+		assertTrue(clienteAlterarTest.getNome().equals("João"));
 	}
 
 	/**
@@ -66,11 +78,15 @@ public class ClienteRepositoryTest extends AbstractTransactionalJUnit4SpringCont
 	@Test
 	public void testDeletar() {
 		Cliente cliente = new Cliente();
-		cliente.setNome("Fernando");
-		cliente.setSobrenome("Luiz");
-		cliente.setTelefone("63322541");
+		cliente.setNome("Daniel");
+		cliente.setSobrenome("Freitas");
+		cliente.setTelefone("26662656");
 		clienteRepository.save(cliente);
-		clienteRepository.delete(cliente);
-		assertTrue(cliente.getId() == null);
+		
+		Cliente clienteTest = clienteRepository.findOne(1L);
+		clienteRepository.delete(clienteTest);
+		
+		Cliente clienteDeletarTest = clienteRepository.findOne(1L);
+		assertTrue(clienteDeletarTest == null);
 	}
 }
