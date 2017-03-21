@@ -49,14 +49,14 @@ public class CalculosCompraImpl implements CalculosCompra {
 	/**
 	 * Calcula o valor total da compra
 	 * 
-	 * @param produtos
-	 *            Valor total dos produtos comprados
-	 * @param frete
-	 *            Valor do frete
+	 * @param listaDeProdutos
+	 *            Lista de todos os produtos comprados
+	 * @param distancia
+	 *            Distancia da entrega para calcular frete
 	 * @return Valor total da compra
 	 */
-	public Double valorTotal(Double produtos, Double frete) {
-		return produtos + frete;
+	public Double valorTotal(List<Produto> listaDeProdutos, Double distancia) {
+		return valorTotalDosProdutos(listaDeProdutos) + calcularFrete(distancia);
 	}
 
 }

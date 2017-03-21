@@ -10,6 +10,6 @@ public interface CalculosCompra {
 
 	public Double calcularFrete(Double distancia);
 
-	public Double valorTotal(Double produtos, Double frete);
+	public Double valorTotal(List<Produto> listaDeProdutos, Double distancia);
 
 }
