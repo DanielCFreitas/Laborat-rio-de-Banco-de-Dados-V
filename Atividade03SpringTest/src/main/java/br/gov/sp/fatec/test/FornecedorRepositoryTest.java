@@ -24,6 +24,9 @@ public class FornecedorRepositoryTest {
 		this.fornecedorRepository = fornecedorRepository;
 	}
 
+	/**
+	 * Teste para Cadastrar um Fornecedor
+	 */
 	@Test
 	public void testCadastrar() {
 		Fornecedor fornecedor = new Fornecedor();
@@ -35,6 +38,9 @@ public class FornecedorRepositoryTest {
 		assertTrue(fornecedor.getId() != null);
 	}
 	
+	/**
+	 * Teste para Consultar um Fornecedor
+	 */
 	@Test
 	public void testConsultar(){
 		Fornecedor fornecedor = new Fornecedor();
@@ -47,6 +53,9 @@ public class FornecedorRepositoryTest {
 		assertTrue(fornecedorTest != null);
 	}
 	
+	/**
+	 * Teste para Alterar um Fornecedor
+	 */
 	@Test
 	public void testAlterar(){
 		Fornecedor fornecedor = new Fornecedor();
@@ -64,6 +73,9 @@ public class FornecedorRepositoryTest {
 		assertTrue(fornecedorAlteradoTest.getNome().equals("Samsung"));
 	}
 	
+	/**
+	 * Teste para Deletar um Fornecedor
+	 */
 	@Test
 	public void testDeleta(){
 		Fornecedor fornecedor = new Fornecedor();

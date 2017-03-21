@@ -25,6 +25,9 @@ public class ClienteRepositoryTest extends AbstractTransactionalJUnit4SpringCont
 		this.clienteRepository = clienteRepository;
 	}
 
+	/**
+	 * Teste para Cadastrar um Cliente
+	 */
 	@Test
 	public void testCadastrar() {
 		Cliente cliente = new Cliente();
@@ -35,12 +38,18 @@ public class ClienteRepositoryTest extends AbstractTransactionalJUnit4SpringCont
 		assertTrue(cliente.getId() != null);
 	}
 
+	/**
+	 * Teste para Consultar um Cliente
+	 */
 	@Test
 	public void testConsultar() {
 		Cliente cliente = clienteRepository.findOne(1L);
 		assertTrue(cliente != null);
 	}
 
+	/**
+	 * Teste para Alterar um Cliente
+	 */
 	@Test
 	public void testAlterar() {
 		Cliente cliente = clienteRepository.findOne(1L);
@@ -51,6 +60,9 @@ public class ClienteRepositoryTest extends AbstractTransactionalJUnit4SpringCont
 		assertTrue(clienteTest.getNome().equals("João"));
 	}
 
+	/**
+	 * Teste para Deletar um Cliente
+	 */
 	@Test
 	public void testDeletar() {
 		Cliente cliente = new Cliente();
