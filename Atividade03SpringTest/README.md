@@ -1,0 +1,9 @@
+# Atividade 2 SpringData
+
+
+#Especificações
+A aplicação será desenvolvida para um sistema de cadastro e consultas de vendas, contendo informações sobre as vendas e qual o produto que foi vendido, a VENDA será registrada informações como: data da venda e os produtos vendidos. O produto terá informações como: Nome, fornecedor, categoria e preço. Os fornecedores deverão possuir informações de contato, endereço, nome e cnpj e por fim a categoria do produto será classificada entre: Eletrônicos, Vestimenta e Alimentos.
+
+#Diagrama de Classe
+
+![alt tag](http://i.imgur.com/7YkLboa.jpg)
