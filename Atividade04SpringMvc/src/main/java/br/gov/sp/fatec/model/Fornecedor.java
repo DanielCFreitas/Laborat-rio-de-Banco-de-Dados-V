@@ -7,6 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.view.View;
+
 /**
  * Classe que representa um fornecedor de produtos na aplicacao
  * 
@@ -21,18 +25,23 @@ public class Fornecedor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "FORN_ID", nullable = false)
+	@JsonView(View.Main.class)
 	private Long id;
 
 	@Column(name = "FORN_NOME", length = 50, nullable = false)
+	@JsonView(View.Main.class)
 	private String nome;
 
 	@Column(name = "FORN_CNPJ", length = 18, nullable = false, unique = true)
+	@JsonView(View.Main.class)
 	private String cnpj;
 
 	@Column(name = "FORN_ENDERECO", length = 100, nullable = false)
+	@JsonView(View.Main.class)
 	private String endereco;
 
 	@Column(name = "FORN_TELEFONE", length = 14, nullable = false)
+	@JsonView(View.Main.class)
 	private String telefone;
 
 	public Fornecedor() {

@@ -17,6 +17,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.view.View;
+
 /**
  * Classe que representa uma venda na aplicacao
  * 
@@ -31,19 +35,23 @@ public class Venda {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "VEN_ID", nullable = false)
+	@JsonView(View.Main.class)
 	private Long id;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "VEN_DATA", nullable = false)
+	@JsonView(View.Main.class)
 	private Date dataVenda;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "VPV_VENDA_PRODUTO", joinColumns = { @JoinColumn(name = "VEN_ID") }, inverseJoinColumns = {
 			@JoinColumn(name = "PROD_ID") })
+	@JsonView(View.Main.class)
 	private List<Produto> produtos;
 
 	@ManyToOne
 	@JoinColumn(name = "CLI_ID")
+	@JsonView(View.Main.class)
 	private Cliente cliente;
 
 	public Venda() {

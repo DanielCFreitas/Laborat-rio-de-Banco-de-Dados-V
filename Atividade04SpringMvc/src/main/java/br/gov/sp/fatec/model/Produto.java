@@ -12,6 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.gov.sp.fatec.view.View;
+
 /**
  * Classe que representa um produto na aplicacao
  * 
@@ -25,20 +29,25 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PROD_ID", nullable = false)
+	@JsonView(View.Main.class)
 	private Long id;
 
 	@Column(name = "PROD_NOME", length = 50, nullable = false)
+	@JsonView(View.Main.class)
 	private String nome;
 
 	@Column(name = "PROD_PRECO", nullable = false)
+	@JsonView(View.Main.class)
 	private Double preco;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "PROD_CATEGORIA", length = 11, nullable = false)
+	@JsonView(View.Main.class)
 	private Categoria categoria;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "FORN_ID", nullable = false)
+	@JsonView(View.Main.class)
 	private Fornecedor fornecedor;
 
 	public Produto() {
