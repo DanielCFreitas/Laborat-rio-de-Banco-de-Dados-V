@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import br.gov.sp.fatec.model.Cliente;
+import br.gov.sp.fatec.service.ClienteServiceImpl;
 import br.gov.sp.fatec.service.CrudService;
 import br.gov.sp.fatec.view.View;
 
@@ -25,11 +27,11 @@ public class ClienteController {
 	@Autowired
 	private CrudService<Cliente> clienteService;
 
-	public void setClienteService(CrudService<Cliente> clienteService) {
+	public void setClienteService(ClienteServiceImpl clienteService) {
 		this.clienteService = clienteService;
 	}
 
-	@RequestMapping(name = "/cliente/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/cliente/add", method = RequestMethod.POST)
 	public ResponseEntity<Void> addCliente(@RequestBody Cliente cliente, UriComponentsBuilder uCompBuilder) {
 		clienteService.salvar(cliente);
 
@@ -38,13 +40,25 @@ public class ClienteController {
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(name = "/cliente/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/cliente/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@JsonView(View.Main.class)
-	public ResponseEntity<List<Cliente>> allCliente() {
-		List<Cliente> listaDeClientes = clienteService.buscarTodos();
+	public ResponseEntity<Cliente> searchClienteById(@PathVariable("id") Long id) {
+		Cliente cliente = clienteService.buscarPorId(id);
+
+		if (cliente == null) {
+			return new ResponseEntity<Cliente>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/cliente/sobrenome/{sobrenome}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@JsonView(View.Main.class)
+	public ResponseEntity<List<Cliente>> allCliente(@PathVariable("sobrenome") String sobrenome) {
+		List<Cliente> listaDeClientes = ((ClienteServiceImpl) clienteService).buscarPorSobrenome(sobrenome);
 
 		if (listaDeClientes.isEmpty()) {
-			
+
 			return new ResponseEntity<List<Cliente>>(HttpStatus.NOT_FOUND);
 		}
 

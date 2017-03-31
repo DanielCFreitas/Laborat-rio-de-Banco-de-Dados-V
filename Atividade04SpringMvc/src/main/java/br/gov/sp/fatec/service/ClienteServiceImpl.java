@@ -34,4 +34,7 @@ public class ClienteServiceImpl implements CrudService<Cliente> {
 		return (List<Cliente>) clienteRepository.findAll();
 	}
 
+	public List<Cliente> buscarPorSobrenome(String sobrenome) {
+		return clienteRepository.findClienteBySobrenomeEquals(sobrenome);
+	}
 }
