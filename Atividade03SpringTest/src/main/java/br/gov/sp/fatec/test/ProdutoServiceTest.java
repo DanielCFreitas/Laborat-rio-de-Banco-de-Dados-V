@@ -16,10 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import br.gov.sp.fatec.model.Categoria;
 import br.gov.sp.fatec.model.Fornecedor;
 import br.gov.sp.fatec.model.Produto;
-import br.gov.sp.fatec.service.FornecedorService;
-import br.gov.sp.fatec.service.FornecedorServiceImpl;
-import br.gov.sp.fatec.service.ProdutoService;
-import br.gov.sp.fatec.service.ProdutoServiceImpl;
+import br.gov.sp.fatec.repository.FornecedorRepository;
+import br.gov.sp.fatec.repository.ProdutoRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/applicationContext.xml" })
@@ -27,17 +25,17 @@ import br.gov.sp.fatec.service.ProdutoServiceImpl;
 public class ProdutoServiceTest extends AbstractTransactionalJUnit4SpringContextTests {
 
 	@Autowired
-	private FornecedorService fornecedorService;
+	private FornecedorRepository fornecedorRepository;
 
 	@Autowired
-	private ProdutoService produtoService;
+	private ProdutoRepository produtoRepository;
 
-	public void setProdutoService(ProdutoServiceImpl produtoService) {
-		this.produtoService = produtoService;
+	public void setProdutoService(ProdutoRepository produtoRepository) {
+		this.produtoRepository = produtoRepository;
 	}
 
-	public void setFornecedorService(FornecedorServiceImpl fornecedorService) {
-		this.fornecedorService = fornecedorService;
+	public void setFornecedorService(FornecedorRepository fornecedorRepository) {
+		this.fornecedorRepository = fornecedorRepository;
 	}
 
 	/**
@@ -50,14 +48,14 @@ public class ProdutoServiceTest extends AbstractTransactionalJUnit4SpringContext
 		fornecedor.setCnpj("3261761");
 		fornecedor.setEndereco("Avenida Paulista");
 		fornecedor.setTelefone("36556559");
-		fornecedorService.salvar(fornecedor);
+		fornecedorRepository.save(fornecedor);
 
 		Produto produto = new Produto();
 		produto.setFornecedor(fornecedor);
 		produto.setNome("Computador");
 		produto.setPreco(2500.00);
 		produto.setCategoria(Categoria.ELETRONICOS);
-		produtoService.salvar(produto);
+		produtoRepository.save(produto);
 
 		assertTrue(produto.getId() != null);
 	}
@@ -72,17 +70,17 @@ public class ProdutoServiceTest extends AbstractTransactionalJUnit4SpringContext
 		fornecedor.setCnpj("3261761");
 		fornecedor.setEndereco("Avenida Paulista");
 		fornecedor.setTelefone("36556559");
-		fornecedorService.salvar(fornecedor);
+		fornecedorRepository.save(fornecedor);
 
 		Produto produto = new Produto();
 		produto.setFornecedor(fornecedor);
 		produto.setNome("Computador");
 		produto.setPreco(2500.00);
 		produto.setCategoria(Categoria.ELETRONICOS);
-		produtoService.salvar(produto);
+		produtoRepository.save(produto);
 
 		Produto produtoTest = new Produto();
-		produtoTest = produtoService.buscarPorId(1L);
+		produtoTest = produtoRepository.findOne(1L);
 
 		assertTrue(produtoTest != null);
 	}
@@ -97,20 +95,20 @@ public class ProdutoServiceTest extends AbstractTransactionalJUnit4SpringContext
 		fornecedor.setCnpj("3261761");
 		fornecedor.setEndereco("Avenida Paulista");
 		fornecedor.setTelefone("36556559");
-		fornecedorService.salvar(fornecedor);
+		fornecedorRepository.save(fornecedor);
 
 		Produto produto = new Produto();
 		produto.setFornecedor(fornecedor);
 		produto.setNome("Computador");
 		produto.setPreco(2500.00);
 		produto.setCategoria(Categoria.ELETRONICOS);
-		produtoService.salvar(produto);
+		produtoRepository.save(produto);
 
-		Produto produtoTest = produtoService.buscarPorId(1L);
+		Produto produtoTest = produtoRepository.findOne(1L);
 		produtoTest.setPreco(3000.00);
-		produtoService.salvar(produtoTest);
+		produtoRepository.save(produtoTest);
 
-		Produto produtoAlterarTest = produtoService.buscarPorId(1L);
+		Produto produtoAlterarTest = produtoRepository.findOne(1L);
 
 		assertTrue(produtoAlterarTest.getPreco() == 3000.00);
 	}
@@ -125,18 +123,18 @@ public class ProdutoServiceTest extends AbstractTransactionalJUnit4SpringContext
 		fornecedor.setCnpj("3261761");
 		fornecedor.setEndereco("Avenida Paulista");
 		fornecedor.setTelefone("36556559");
-		fornecedorService.salvar(fornecedor);
+		fornecedorRepository.save(fornecedor);
 
 		Produto produto = new Produto();
 		produto.setFornecedor(fornecedor);
 		produto.setNome("Computador");
 		produto.setPreco(2500.00);
 		produto.setCategoria(Categoria.ELETRONICOS);
-		produtoService.salvar(produto);
+		produtoRepository.save(produto);
 
-		produtoService.excluir(produto);
+		produtoRepository.delete(produto);
 
-		Produto produtoTest = produtoService.buscarPorId(produto.getId());
+		Produto produtoTest = produtoRepository.findOne(produto.getId());
 		assertTrue(produtoTest == null);
 	}
 
@@ -151,25 +149,26 @@ public class ProdutoServiceTest extends AbstractTransactionalJUnit4SpringContext
 		fornecedor.setCnpj("3261761");
 		fornecedor.setEndereco("Avenida Paulista");
 		fornecedor.setTelefone("36556559");
-		fornecedorService.salvar(fornecedor);
+		fornecedorRepository.save(fornecedor);
 
 		Produto produto = new Produto();
 		produto.setFornecedor(fornecedor);
 		produto.setNome("Computador");
 		produto.setPreco(2500.00);
 		produto.setCategoria(Categoria.ELETRONICOS);
-		produtoService.salvar(produto);
+		produtoRepository.save(produto);
 
 		Produto produto2 = new Produto();
 		produto2.setFornecedor(fornecedor);
 		produto2.setNome("Camisa Apple");
 		produto2.setPreco(25.00);
 		produto2.setCategoria(Categoria.VESTIMENTAS);
-		produtoService.salvar(produto2);
+		produtoRepository.save(produto2);
 
 		// Busca os produtos que sao da categoria Eletronicos do Fornecedor
 		// Apple
-		List<Produto> listaDeProdutos = produtoService.buscarPorCategoriaEFornecedor(Categoria.ELETRONICOS, "Apple");
+		List<Produto> listaDeProdutos = produtoRepository.findByCategoriaAndFornecedorNomeEquals(Categoria.ELETRONICOS,
+				"Apple");
 
 		for (Produto produtoCorrente : listaDeProdutos) {
 			if (!produtoCorrente.getCategoria().equals(Categoria.ELETRONICOS)) {
@@ -189,24 +188,24 @@ public class ProdutoServiceTest extends AbstractTransactionalJUnit4SpringContext
 		fornecedor.setCnpj("3261761");
 		fornecedor.setEndereco("Avenida Paulista");
 		fornecedor.setTelefone("36556559");
-		fornecedorService.salvar(fornecedor);
+		fornecedorRepository.save(fornecedor);
 
 		Produto produto = new Produto();
 		produto.setFornecedor(fornecedor);
 		produto.setNome("Computador");
 		produto.setPreco(2500.00);
 		produto.setCategoria(Categoria.ELETRONICOS);
-		produtoService.salvar(produto);
+		produtoRepository.save(produto);
 
 		Produto produto2 = new Produto();
 		produto2.setFornecedor(fornecedor);
 		produto2.setNome("Camisa Apple");
 		produto2.setPreco(25.00);
 		produto2.setCategoria(Categoria.VESTIMENTAS);
-		produtoService.salvar(produto2);
+		produtoRepository.save(produto2);
 
 		// Busca produtos que tenham o preco acima de 1000.00
-		List<Produto> listaDeProdutos = produtoService.buscarPrecoMaiorQue(1000.00);
+		List<Produto> listaDeProdutos = produtoRepository.findByPrecoGreaterThan(1000.00);
 		for (Produto produtoCorrente : listaDeProdutos) {
 			if (produtoCorrente.getPreco() < 1000.00) {
 				Assert.fail();
@@ -225,24 +224,24 @@ public class ProdutoServiceTest extends AbstractTransactionalJUnit4SpringContext
 		fornecedor.setCnpj("3261761");
 		fornecedor.setEndereco("Avenida Paulista");
 		fornecedor.setTelefone("36556559");
-		fornecedorService.salvar(fornecedor);
+		fornecedorRepository.save(fornecedor);
 
 		Produto produto = new Produto();
 		produto.setFornecedor(fornecedor);
 		produto.setNome("Computador");
 		produto.setPreco(2500.00);
 		produto.setCategoria(Categoria.ELETRONICOS);
-		produtoService.salvar(produto);
+		produtoRepository.save(produto);
 
 		Produto produto2 = new Produto();
 		produto2.setFornecedor(fornecedor);
 		produto2.setNome("Camisa Apple");
 		produto2.setPreco(25.00);
 		produto2.setCategoria(Categoria.VESTIMENTAS);
-		produtoService.salvar(produto2);
+		produtoRepository.save(produto2);
 
 		// Busca produtos que tenham o preco acima de 1000.00
-		List<Produto> listaDeProdutos = produtoService.buscarPrecoMenorQue(1000.00);
+		List<Produto> listaDeProdutos = produtoRepository.findByPrecoLessThan(1000.00);
 		for (Produto produtoCorrente : listaDeProdutos) {
 			if (produtoCorrente.getPreco() > 1000.00) {
 				Assert.fail();
@@ -260,17 +259,17 @@ public class ProdutoServiceTest extends AbstractTransactionalJUnit4SpringContext
 		fornecedor.setCnpj("3261761");
 		fornecedor.setEndereco("Avenida Paulista");
 		fornecedor.setTelefone("36556559");
-		fornecedorService.salvar(fornecedor);
+		fornecedorRepository.save(fornecedor);
 
 		Produto produto = new Produto();
 		produto.setFornecedor(fornecedor);
 		produto.setNome("Computador");
 		produto.setPreco(2500.00);
 		produto.setCategoria(Categoria.ELETRONICOS);
-		produtoService.salvar(produto);
+		produtoRepository.save(produto);
 
 		// Busca nome do produto por sequencia de caracteres
-		List<Produto> listaDeProdutos = produtoService.buscarPorSequenciaDeCaractere("Comp");
+		List<Produto> listaDeProdutos = produtoRepository.findByNomeContaining("Comp");
 
 		for (Produto produtoCorrente : listaDeProdutos) {
 			if (!produtoCorrente.getNome().contains("Comp")) {
